@@ -1,0 +1,34 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+@import 'computer-modern/cmu-serif.css';
+@import 'computer-modern/cmu-typewriter-text.css';
+
+@theme {
+	--font-display: 'CMU Serif';
+	--font-mono: 'CMU Typewriter Text';
+}
+
+body {
+	@apply mx-4 mb-8 flex max-w-3xl flex-col gap-y-2 font-display md:mx-auto;
+}
+
+h1 {
+	@apply my-4 text-3xl font-bold;
+}
+
+h1 {
+	@apply my-3 text-2xl font-bold;
+}
+
+h3 {
+	@apply my-2 text-xl font-bold;
+}
+
+.prose {
+	figure {
+		figcaption {
+			@apply text-center;
+		}
+	}
+}
