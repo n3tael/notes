@@ -9,7 +9,7 @@
 
 <Head
 	title={data.metadata.title}
-	description={data.metadata.description}
+	description={data.metadata.description || ''}
 	pathname={new URL(page.url.pathname, BASE_URL).toString()}
 />
 
@@ -17,9 +17,10 @@
 	{data.metadata.date.toLocaleDateString('uk-UA', {
 		dateStyle: 'long'
 	})} |
-	{Math.ceil(data.metadata.wordsCount / 120)} хв. |
+	{Math.ceil((data.metadata.wordsCount || 0) / 120)} хв. |
 	<a
 		class="transition-colors hover:text-gray-500"
+		data-sveltekit-reload
 		href={`/article/${data.metadata.id}.md`}>переглянути код</a
 	>
 </span>
