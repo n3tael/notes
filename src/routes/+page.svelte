@@ -32,14 +32,14 @@
 		@apply flex flex-col gap-y-1;
 
 		.post {
-			@apply flex justify-between px-2 py-1 transition-colors hover:bg-zinc-100;
+			@apply flex justify-between border-1 border-secondary px-2 py-1 transition-colors hover:bg-secondary;
 
 			.title {
 				@apply font-bold;
 			}
 
 			.date {
-				@apply font-light text-zinc-500;
+				@apply font-light text-dimmed;
 			}
 		}
 	}

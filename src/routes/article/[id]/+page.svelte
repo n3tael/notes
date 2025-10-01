@@ -13,20 +13,28 @@
 	pathname={new URL(page.url.pathname, BASE_URL).toString()}
 />
 
-<span class="meta">
-	{data.metadata.date.toLocaleDateString('uk-UA', {
-		dateStyle: 'long'
-	})} |
-	{Math.ceil((data.metadata.wordsCount || 0) / 120)} хв. |
-	<a
-		class="transition-colors hover:text-gray-500"
-		data-sveltekit-reload
-		href={`/article/${data.metadata.id}.md`}>переглянути код</a
-	>
-</span>
 <h1>{data.metadata.title}</h1>
+<p class="meta">
+	<span>
+		{data.metadata.date.toLocaleDateString('uk-UA', {
+			dateStyle: 'long'
+		})}
+	</span>
+	<span>
+		{Math.ceil((data.metadata.wordsCount || 0) / 120)} хв.
+	</span>
+	<span>
+		<a
+			class="transition-colors hover:text-dimmed-hover"
+			data-sveltekit-reload
+			href={`/article/${data.metadata.id}.md`}>переглянути код</a
+		>
+	</span>
+</p>
 
-<div class="mx-auto prose md:prose-lg lg:prose-xl">
+<div
+	class="mx-auto prose prose-neutral md:prose-lg lg:prose-xl dark:prose-invert"
+>
 	{@html data.html}
 </div>
 
@@ -34,7 +42,11 @@
 	@reference '$styles';
 
 	.meta {
-		@apply text-center text-sm text-gray-400;
+		@apply text-center text-sm text-dimmed;
+
+		span:not(:last-child):after {
+			content: ' ·';
+		}
 	}
 
 	h1 {

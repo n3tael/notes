@@ -1,13 +1,6 @@
-<script lang="ts">
-	import RssIcon from '$lib/assets/rss.svelte';
-</script>
-
 <header>
 	<a href="/">
 		<h1><span class="font-normal italic">нотатки</span> нетаєля</h1>
-	</a>
-	<a href="/rss.xml">
-		<RssIcon />
 	</a>
 </header>
 
