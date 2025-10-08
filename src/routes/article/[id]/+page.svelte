@@ -20,7 +20,7 @@
 			dateStyle: 'long'
 		})}
 	</span>
-	<span>
+	<span title={`${data.metadata.wordsCount} слів`}>
 		{Math.ceil((data.metadata.wordsCount || 0) / 120)} хв.
 	</span>
 	<span>

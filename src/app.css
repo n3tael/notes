@@ -14,6 +14,7 @@
 	--color-foreground: var(--color-neutral-800);
 	--color-dimmed: var(--color-neutral-400);
 	--color-dimmed-hover: var(--color-neutral-500);
+	--color-accent: var(--color-violet-400);
 }
 
 .dark {
@@ -29,21 +30,56 @@ body {
 }
 
 h1 {
-	@apply my-4 text-3xl font-bold;
+	@apply my-4 text-4xl font-bold;
 }
 
-h1 {
-	@apply my-3 text-2xl font-bold;
+h2 {
+	@apply my-3 text-3xl font-bold;
 }
 
 h3 {
+	@apply my-2 text-2xl font-bold;
+}
+
+h4 {
 	@apply my-2 text-xl font-bold;
+}
+
+sup a[data-footnote-ref] {
+	@apply text-accent;
+}
+
+.footnotes {
+	@apply text-sm;
+
+	h2 { @apply m-0 text-xl }
+	.data-footnote-backref {
+		@apply text-accent;
+	}
 }
 
 .prose {
 	figure {
+		img, audio { @apply mx-auto }
 		figcaption {
 			@apply text-center;
 		}
+	}
+
+	a:not([data-footnote-ref]) {
+		@apply decoration-1 hover:decoration-2 hover:decoration-accent transition-all;
+	}
+
+	[data-footnote-ref]::before,
+	[data-footnote-ref]::after {
+		@apply decoration-0 text-dimmed;
+	}
+
+	[data-footnote-ref]::before {
+		content: '[';
+	}
+
+	[data-footnote-ref]::after {
+		content: ']';
 	}
 }

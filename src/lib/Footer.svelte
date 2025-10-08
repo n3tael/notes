@@ -36,7 +36,7 @@
 
 		a,
 		button {
-			@apply hover:cursor-pointer;
+			@apply hover:cursor-pointer hover:text-accent transition-colors;
 		}
 	}
 </style>

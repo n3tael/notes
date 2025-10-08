@@ -1,12 +1,14 @@
 import * as v from 'valibot';
 import matter from 'gray-matter';
 import { error, text } from '@sveltejs/kit';
-import rehypeSanitize from 'rehype-sanitize';
-import rehypeFigure from '@microflash/rehype-figure';
-import rehypeStringify from 'rehype-stringify';
+import { unified } from 'unified';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
-import { unified } from 'unified';
+import remarkGfm from 'remark-gfm';
+import rehypeFigure from '@microflash/rehype-figure';
+import rehypeStringify from 'rehype-stringify';
+import stripMarkdown from 'strip-markdown';
+import remarkStringify from 'remark-stringify';
 
 const posts = import.meta.glob('/src/articles/*.mdx', {
 	query: '?raw',
@@ -47,17 +49,19 @@ export async function getPost(id: string) {
 	if (!posts[path]) return error(404);
 
 	let { content, data } = matter(posts[path]);
-	data.wordsCount = content.trim().split(/\s+/).length;
+	
+	data.wordsCount = (await unified().use(remarkParse).use(stripMarkdown).use(remarkStringify, { resourceLink: false }).process(content)).toString().match(/\S+/g)?.length || 0;
+	
 	data.description = content.trim().split('\n')[0];
 
 	const metadata = v.parse(scheme, { id, ...data });
 	const html = (
 		await unified()
 			.use(remarkParse)
-			.use(remarkRehype)
-			.use(rehypeSanitize)
+			.use(remarkGfm)
+			.use(remarkRehype, { allowDangerousHtml: true, footnoteLabel: 'Примітки' })
 			.use(rehypeFigure)
-			.use(rehypeStringify)
+			.use(rehypeStringify, { allowDangerousHtml: true })
 			.process(content)
 	).toString();
 
